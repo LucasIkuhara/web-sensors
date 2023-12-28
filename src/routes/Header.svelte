@@ -26,7 +26,7 @@
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
+		<a href="https://github.com/LucasIkuhara/web-sensors">
 			<img src={github} alt="GitHub" />
 		</a>
 	</div>
