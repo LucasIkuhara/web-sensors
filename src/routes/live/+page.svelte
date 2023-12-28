@@ -17,12 +17,22 @@
 		const url = params.get("target") ?? "";
 		return decodeURIComponent(url)
 	}
+	let long = 0;
+	let lat = 0;
 
-	console.log(getTarget())
 	import { GpsExtractor } from '../../adapters/GpsService';
 	const gps = new GpsExtractor(true);
-	// gps.registerCallback(async data => {console.log(data)})
+	setInterval(async () => {
+		const data = gps.getData();
+		lat = data.coords.latitude;
+		long = data.coords.longitude;
+	}, 2500);
+
 </script>
 <div class="text-column">
-	<h1>Live</h1>
+	<h1>Live Demo</h1>
+	<p>Current Position is;</p>
+	<p>Latitude: {long}</p>
+	<p>Longitude: {lat}</p>
+
 </div>
