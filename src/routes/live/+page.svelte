@@ -4,9 +4,9 @@
 </svelte:head>
 <script lang="ts">
 	console.log(window.location.pathname)
-	import { dummy } from '../../adapters/GpsService';
-	console.log(dummy)
-	console.log(dummy)
+	import { GpsExtractor } from '../../adapters/GpsService';
+	const gps = new GpsExtractor(true);
+	gps.registerCallback(async data => {console.log(data)})
 </script>
 <div class="text-column">
 	<h1>About this app</h1>

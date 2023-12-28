@@ -1,7 +1,7 @@
 /**
  * The callback signature for services implementing the @type {IExtractor} interface.
  */
-export type ExtractorCallback<T> = (data: T) => unknown;
+export type ExtractorCallback<T> = (data: T) => Promise<void>;
 
 export interface IExtractor<T> {
 
@@ -18,12 +18,7 @@ export interface IExtractor<T> {
     registerCallback(target: ExtractorCallback<T>): void;
 
     /**
-     * Refresh the reading of the extractor and return the result. 
+     * Destroy the extractor service. This includes clearing allocated or tracked resources.
      */
-    refresh(): Promise<T>;
-
-    /**
-     * Setup the extractor service. This includes getting user grants.
-     */
-    setup(): void;
+    destroy(): void;
 }
