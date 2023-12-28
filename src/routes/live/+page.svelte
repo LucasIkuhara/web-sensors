@@ -3,6 +3,7 @@
 	<meta name="description" content="A demo of web-sensors" />
 </svelte:head>
 <script lang="ts">
+	const a: number = 3
 
 	/**
 	 * Gets the target URL to send data to from the page's query params, if there is one.
