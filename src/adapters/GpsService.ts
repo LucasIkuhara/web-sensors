@@ -54,16 +54,13 @@ export class GpsExtractor implements IExtractor<GeolocationPosition> {
      * @param position 
      */
     async refresh(position: GeolocationPosition): Promise<void> {
-        
+
         this._buffer = position;
         this._callbackPool.forEach(async cb => {
 
-            // Create a copy, so callbacks can't alter the buffer.
-            const copy = position//structuredClone(position);
-
             // Prevent callback failure from interfering with others.
             try {
-                await cb(copy);
+                await cb(position);
             }
             catch (err) {
                 console.error(`Callback ${cb.name} failed due to the following error: ${JSON.stringify(err)}`);
