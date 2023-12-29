@@ -11,8 +11,9 @@
 <script lang="js">
     import { GpsExtractor } from "../../adapters/GpsExtractor";
     import * as Plotly from "plotly.js-dist";
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     
+
     const gps = new GpsExtractor(true);
     const options = {displayModeBar: false, responsive: false};
     let graphIsLive = false;
@@ -43,6 +44,10 @@
         })
 
 	});
+
+    onDestroy(() => {
+        gps.destroy();
+    })
 </script>
 
 <style>
