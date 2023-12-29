@@ -10,15 +10,24 @@ export class VideoService implements IExtractor<MediaStream> {
     private _stream?: MediaStream;
     private _callbackPool: ExtractorCallback<MediaStream>[] = [];
 
-    constructor() {
+    constructor(useBackCamera: boolean) {
+        
+        const cameraToUse = useBackCamera ? "environment" : "user";
+        const videoOptions: MediaTrackConstraints = {
+            facingMode: cameraToUse
+        };
 
         const options: MediaStreamConstraints = {
-            audio: true,
-            video: true
+            audio: false,
+            video: videoOptions
         };
         this.setup(options)
     }
 
+    /**
+     * Create and wait for MediaStream to be started. Trigger Callbacks when done.
+     * @param options 
+     */
     async setup(options: MediaStreamConstraints): Promise<void> {
 
         const media = await navigator.mediaDevices.getUserMedia(options);
@@ -26,6 +35,9 @@ export class VideoService implements IExtractor<MediaStream> {
         this.triggerCallbacks();
     }
 
+    /**
+     * Call all callbacks with the media stream.
+     */
     private triggerCallbacks() {
 
         this._callbackPool.forEach(async cb => {
@@ -43,6 +55,10 @@ export class VideoService implements IExtractor<MediaStream> {
         });
     }
 
+    /**
+     * Gets a MediaStream object with camera and audio.
+     * @returns A copy of the media stream.
+     */
     getData(): MediaStream {
 
         if (!this._stream)
@@ -55,9 +71,16 @@ export class VideoService implements IExtractor<MediaStream> {
         this._stream = undefined;
     }
 
+    /**
+     * Register callbacks awaiting for the MediaStream to be initialized.
+     * If there is already a MediaStream, the callback is triggered immediately.
+     * @param target 
+     */
     registerCallback(target: ExtractorCallback<MediaStream>): void {
         this._callbackPool.push(target);
-        this.triggerCallbacks();
+
+        if (this._stream)
+            target(this._stream);
     }
 
 }
