@@ -16,8 +16,11 @@
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 				<a href="./about">About</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/live') ? 'page' : undefined}>
-				<a href="./live">Live Demo</a>
+			<li aria-current={$page.url.pathname.startsWith('/live-demo') ? 'page' : undefined}>
+				<a href="./live-demo">Live Demo</a>
+			</li>
+			<li aria-current={$page.url.pathname.startsWith('/headless') ? 'page' : undefined}>
+				<a href="./headless">Transmit</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
