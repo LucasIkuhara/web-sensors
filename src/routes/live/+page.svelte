@@ -43,7 +43,7 @@
 		const url = params.get("target") ?? "";
 		return decodeURIComponent(url)
 	}
-	const videoService = new VideoService(false)
+	const videoService = new VideoService(true)
 	videoService.registerCallback(async (media) => {
 
 		const video = document.getElementsByTagName("video").item(0);
