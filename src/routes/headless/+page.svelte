@@ -11,17 +11,36 @@
 </div>
 
 <script lang="ts">
+    import { WSTransmitter } from "../../adapters/WSTransmitter";
     import { getTargetServer } from "../../utils/pageUtils";
+
+
 	let serverAddress = getTargetServer();
+	let wsTx: WSTransmitter | null = null;
 
-	function changeHandler(data: any) {
-		console.log(data)
+	/**
+	 * Updates the target server address.
+	 */
+	function changeHandler() {
+		console.log(`Server address updated to: ${serverAddress}`);
+
+		if (wsTx) 
+			wsTx.changeTargetAddress(serverAddress);
+
+		else
+			wsTx = new WSTransmitter(serverAddress);
 	}
-	
-	if (serverAddress.trim()) {
-		let socket = new WebSocket(serverAddress)
-		socket.send("")
 
+	// If the page was called with a target parameter, start immediately.
+	if (serverAddress.trim()) {
+		wsTx = new WSTransmitter(serverAddress);
+		wsTx.sendData({
+			type: "gps",
+			payload: {
+				latitude: 1,
+				longitude: 1
+			}
+		})
 	}
 </script>
 
