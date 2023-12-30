@@ -29,6 +29,16 @@
 
 		else
 			wsTx = new WSTransmitter(serverAddress);
+
+		setTimeout(()=> {
+			wsTx.sendData({
+				type: "gps",
+				payload: {
+					latitude: 1,
+					longitude: 1
+				}
+			})
+		}, 5000)
 	}
 
 	// If the page was called with a target parameter, start immediately.
