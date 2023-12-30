@@ -14,7 +14,7 @@ export type GpsData = {
 export interface ISensorTransmitter {
 
     /**
-     * Send sensor data chunk.
+     * Send sensor data frame.
      * @param data The sensor observation.
      */
     sendData(data: SensorData): Promise<any>
