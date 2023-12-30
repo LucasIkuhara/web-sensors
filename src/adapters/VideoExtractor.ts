@@ -68,6 +68,9 @@ export class VideoService implements IExtractor<MediaStream> {
     }
 
     destroy(): void {
+        this._stream?.getTracks().forEach(tr => 
+            tr.stop()
+        )
         this._stream = undefined;
     }
 

@@ -13,6 +13,7 @@
 </div>
 
 <script lang="ts">
+    import { onDestroy } from "svelte";
     import { VideoService } from "../../adapters/VideoExtractor";
 	import GpsDemo from "./GpsDemo.svelte"
 
@@ -32,4 +33,7 @@
 		console.log(media.getVideoTracks()[0].applyConstraints())
 	});
 
+	onDestroy(() => {
+		videoService.destroy();
+	})
 </script>
