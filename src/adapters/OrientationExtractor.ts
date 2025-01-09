@@ -1,4 +1,4 @@
-import type { ExtractorCallback, IExtractor, OrientationData } from "../ports/Extractor";
+import type { OrientationData } from "../ports/Extractor";
 import {
   AbsoluteOrientationSensor
 } from 'motion-sensors-polyfill/src/motion-sensors.js';
@@ -15,8 +15,8 @@ export class OrientationExtractor extends GenericExtractor<OrientationData> {
     constructor(options: MotionSensorOptions = { frequency: 60, referenceFrame: "device" }) {
         super()
         this._sensor = new AbsoluteOrientationSensor(options);
-        this._sensor.onreading = this.refreshData;
-        this._sensor.onerror = this.handleWatchError;
+        this._sensor.onreading = (e: Event) => this.refreshData(e);
+        this._sensor.onerror = (e: SensorErrorEvent) => this.handleWatchError(e);
         this._sensor.start(); 
     }
 
