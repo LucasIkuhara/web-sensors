@@ -20,8 +20,17 @@ export class GenericExtractor<T> implements IExtractor<T> {
      */
     protected triggerCallbacks() {
         const currentValue = this._buffer;
-        if (currentValue) 
-            this._callbackPool.forEach(fn => fn(currentValue));
+        if (currentValue) {
+            this._callbackPool.forEach(async cb => {
+                // Prevent callback failure from interfering with others.
+                try {
+                    await cb(currentValue);
+                }
+                catch (err) {
+                    console.error("Callback ${cb.name} failed due to the following error:", err);
+                }
+            })
+        }
     }
 
     destroy(): void {

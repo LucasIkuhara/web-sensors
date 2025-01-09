@@ -1,6 +1,7 @@
 import type { OrientationData } from "../ports/Extractor";
 import {
-  AbsoluteOrientationSensor
+    AbsoluteOrientationSensor
+    // @ts-ignore
 } from 'motion-sensors-polyfill/src/motion-sensors.js';
 import { GenericExtractor } from "./GenericExtractor";
 
@@ -21,7 +22,7 @@ export class OrientationExtractor extends GenericExtractor<OrientationData> {
     }
 
     private refreshData(event: Event) {
-        const q: number[] = event.target?.quaternion;
+        const q: number[] = (event.target as any).quaternion;
         this._buffer = {
             type: "orientation",
             payload: {

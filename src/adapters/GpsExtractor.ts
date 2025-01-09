@@ -1,24 +1,20 @@
-import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
+import type { GpsData } from "../ports/Extractor";
+import { GenericExtractor } from "./GenericExtractor";
 
 
 /**
  * A GPS extractor based on the Geolocation WebAPI.
  */
-export class GpsExtractor implements IExtractor<GeolocationPosition> {
+export class GpsExtractor extends GenericExtractor<GpsData> {
 
     private _watchId: number;
-    private _buffer?: GeolocationPosition;
-    private _callbackPool: ExtractorCallback<GeolocationPosition>[] = [];
 
-    constructor(highAccuracy: boolean) {
+    constructor(options = { enableHighAccuracy: true }) {
+        super();
 
         // Fails if the context isn't capable of geolocation.
-        // if (!("geolocation" in navigator)) 
-        //     throw new Error("GPS unavailable in the context.")
-
-        const options: PositionOptions = {
-            enableHighAccuracy: highAccuracy
-        };
+        if (!("geolocation" in navigator)) 
+            throw new Error("GPS unavailable in the context.")
 
         // Start watching the GPS signal.
         this._watchId = navigator.geolocation.watchPosition(
@@ -28,20 +24,8 @@ export class GpsExtractor implements IExtractor<GeolocationPosition> {
         );
     }
 
-    getData(): GeolocationPosition {
-
-        if (!this._buffer)
-            throw new Error("The buffer is empty.");
-
-        return this._buffer;
-    }
-
     destroy(): void {
         navigator.geolocation.clearWatch(this._watchId);
-    }
-
-    registerCallback(target: ExtractorCallback<GeolocationPosition>): void {
-        this._callbackPool.push(target);
     }
 
     private handleWatchError(err: GeolocationPositionError) {
@@ -53,17 +37,13 @@ export class GpsExtractor implements IExtractor<GeolocationPosition> {
      * @param position 
      */
     async refresh(position: GeolocationPosition): Promise<void> {
-
-        this._buffer = position;
-        this._callbackPool.forEach(async cb => {
-
-            // Prevent callback failure from interfering with others.
-            try {
-                await cb(position);
+        this._buffer = {
+            type: "gps",
+            payload: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
             }
-            catch (err) {
-                console.error(`Callback ${cb.name} failed due to the following error: ${JSON.stringify(err)}`);
-            }
-        })
+        }
+        this.triggerCallbacks();
     }
 }

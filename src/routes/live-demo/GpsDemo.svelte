@@ -5,11 +5,12 @@
 
 <script lang="js">
     import { GpsExtractor } from "../../adapters/GpsExtractor";
+    // @ts-ignore
     import * as Plotly from "plotly.js-dist";
     import { onMount, onDestroy } from 'svelte';
     
 
-    const gps = new GpsExtractor(true);
+    const gps = new GpsExtractor();
     const options = {displayModeBar: false, responsive: false};
     let graphIsLive = false;
     
@@ -18,13 +19,13 @@
             
             const mapLayout = {
                 dragmode: "zoom",
-                mapbox: { style: "open-street-map", center: { lat: pos.coords.latitude, lon: pos.coords.longitude }, zoom: 8 },
+                mapbox: { style: "open-street-map", center: { lat: pos.payload.latitude, lon: pos.payload.longitude }, zoom: 8 },
                 margin: { r: 1, t: 1, b: 1, l: 1 }
             };
             const data = {
                 type: "scattermapbox",
-                lon: [pos.coords.longitude],
-                lat: [pos.coords.latitude],
+                lon: [pos.payload.longitude],
+                lat: [pos.payload.latitude],
                 marker: { color: "red", size: 20 }
             }
 
