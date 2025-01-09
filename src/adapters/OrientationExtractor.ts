@@ -7,7 +7,7 @@ import type { ExtractorCallback, IExtractor, OrientationData } from "../ports/Ex
 export class OrientationExtractor implements IExtractor<OrientationData> {
 
     private _sensor: any;
-    private _buffer?: OrientationData;
+    private _buffer?: OrientationData | any;
     private _callbackPool: ExtractorCallback<OrientationData>[] = [];
 
     constructor(options = { frequency: 60, referenceFrame: "device" }) {
@@ -40,5 +40,6 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
 
     private handleWatchError(err: SensorErrorEvent) {
         console.warn("Failed to watch Orientation: ", err);
+        this._buffer = JSON.stringify(err)
     }
 }
