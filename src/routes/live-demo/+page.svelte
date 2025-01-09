@@ -22,12 +22,9 @@
 	import GpsDemo from "./GpsDemo.svelte"
 	import CameraDemo from "./CameraDemo.svelte"
     import { OrientationExtractor } from "../../adapters/OrientationExtractor";
-	let x: any = [0,0,0,0]
+	let x = "X Y Z W"
 	const or = new OrientationExtractor()
-	or.registerCallback(async data => {x = data})
-	setTimeout(() => {
-		x = or.getData()
-	}, (2599));
+	or.registerCallback(async data => {x = `X: ${data.payload.x}, Y: ${data.payload.y}, Z: ${data.payload.z}, W: ${data.payload.w}`})
 </script>
 <style>
 	#widget-grid {
