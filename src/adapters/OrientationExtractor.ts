@@ -40,6 +40,6 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
 
     private handleWatchError(err: SensorErrorEvent) {
         console.warn("Failed to watch Orientation: ", err);
-        this._buffer = JSON.stringify(err)
+        window.alert(JSON.stringify(err))
     }
 }
