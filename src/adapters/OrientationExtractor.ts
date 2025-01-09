@@ -12,7 +12,7 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
 
     constructor(options = { frequency: 60, referenceFrame: "device" }) {
         this._sensor = new AbsoluteOrientationSensor(options);
-        this._sensor.onreading = this.refreshData;
+        this._sensor.onreading = e => this.refreshData(e);
         this._sensor.onerror = this.handleWatchError;
         this._sensor.start(); 
     }
@@ -26,8 +26,8 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
         return this._buffer;
     }
 
-    private refreshData(event: any) {
-        this._buffer = event
+    private refreshData(event: Event) {
+        this._buffer = event.target.quaternion;
     }
 
     destroy(): void {
