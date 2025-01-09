@@ -25,6 +25,9 @@
 	let x: any = [0,0,0,0]
 	const or = new OrientationExtractor()
 	or.registerCallback(async data => {x = data})
+	setTimeout(() => {
+		x = or.getData()
+	}, (2599));
 </script>
 <style>
 	#widget-grid {
