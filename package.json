@@ -23,6 +23,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@types/w3c-generic-sensor": "^1.0.10",
+		"motion-sensors-polyfill": "^0.3.7",
 		"plotly.js-dist": "^2.27.1"
 	}
 }

@@ -1,4 +1,7 @@
 import type { ExtractorCallback, IExtractor, OrientationData } from "../ports/Extractor";
+// import {
+//   AbsoluteOrientationSensor
+// } from 'motion-sensors-polyfill/src/motion-sensors.js';
 
 
 /**
@@ -7,12 +10,13 @@ import type { ExtractorCallback, IExtractor, OrientationData } from "../ports/Ex
 export class OrientationExtractor implements IExtractor<OrientationData> {
 
     private _sensor: any;
-    private _buffer?: OrientationData | any;
+    private _buffer?: OrientationData;
     private _callbackPool: ExtractorCallback<OrientationData>[] = [];
 
-    constructor(options = { frequency: 60, referenceFrame: "device" }) {
+    constructor(options: MotionSensorOptions = { frequency: 60, referenceFrame: "device" }) {
         this._sensor = new AbsoluteOrientationSensor(options);
-        this._sensor.onreading = this.refreshData;
+        this._sensor.addEventListener("reading", this.refreshData);
+        // this._sensor.onreading = this.refreshData;
         this._sensor.onerror = this.handleWatchError;
         this._sensor.start(); 
     }
@@ -26,7 +30,16 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
     }
 
     private refreshData(event: Event) {
-        this._buffer = event.target.quaternion;
+        const q = event.target?.quaternion;
+        this._buffer = {
+            type: "orientation",
+            payload: {
+                x: q[0],
+                y: q[1],
+                z: q[2],
+                w: q[3],
+            }
+        }
     }
 
     destroy(): void {
