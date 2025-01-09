@@ -21,9 +21,7 @@ export class AccelerationExtractor extends GenericExtractor<AccelerationData> {
         this._sensor.start(); 
     }
 
-    private refreshData(event: Event) {
-        console.log(event)
-        
+    private refreshData(event: Event) {        
         this._buffer = {
             type: "acceleration",
             payload: {

@@ -33,7 +33,7 @@
 	const ac = new AccelerationExtractor()
 
 	or.registerCallback(async data => {x = `X: ${data.payload.x}\n Y: ${data.payload.y}\n Z: ${data.payload.z}\n W: ${data.payload.w}`})
-	ac.registerCallback(async data => {x = `X: ${data.payload.x}\n Y: ${data.payload.y}\n Z: ${data.payload.z}`})
+	ac.registerCallback(async data => {y = `X: ${data.payload.x}\n Y: ${data.payload.y}\n Z: ${data.payload.z}`})
 </script>
 <style>
 	#widget-grid {
