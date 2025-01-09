@@ -6,7 +6,7 @@
 <div class="text-column">
 	<h1>Live Demo</h1>
 	<section id='widget-grid'>
-		<div class="widget-container"> Acc </div>
+		<div class="widget-container"> Orientation: {x} </div>
 		<div class="widget-container">
 			 <CameraDemo></CameraDemo>
 		</div>
@@ -21,6 +21,10 @@
 <script lang="ts">
 	import GpsDemo from "./GpsDemo.svelte"
 	import CameraDemo from "./CameraDemo.svelte"
+    import { OrientationExtractor } from "../../adapters/OrientationExtractor";
+	let x: any = [0,0,0,0]
+	const or = new OrientationExtractor()
+	or.registerCallback(async data => {x = data})
 </script>
 <style>
 	#widget-grid {
