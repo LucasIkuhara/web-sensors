@@ -34,7 +34,7 @@ export type AccelerationData = {
     }
 }
 
-export type SensorData = GpsData;
+export type SensorData = GpsData | OrientationData | AccelerationData;
 
 
 /**

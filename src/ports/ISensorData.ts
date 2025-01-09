@@ -1,3 +1,5 @@
+import type { SensorData } from "./Extractor";
+
 /**
  * An entity capable of transmitting sensor data.
  */
