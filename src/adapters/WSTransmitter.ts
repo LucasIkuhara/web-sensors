@@ -1,4 +1,5 @@
-import type { SensorData, ISensorTransmitter } from "../ports/ISensorData";
+import type { ISensorTransmitter } from "../ports/ISensorData";
+import type { SensorData } from "../ports/Extractor";
 
 
 export class WSTransmitter implements ISensorTransmitter {

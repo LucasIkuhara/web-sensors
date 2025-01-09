@@ -1,5 +1,4 @@
-import { error } from "@sveltejs/kit";
-import type { ExtractorCallback, IExtractor } from "../ports/IExtractor";
+import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
 
 
 /**

@@ -1,9 +1,8 @@
-import { error } from "@sveltejs/kit";
-import type { ExtractorCallback, IExtractor } from "../ports/IExtractor";
+import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
 
 
 /**
- * A GPS extractor based on the Geolocation WebAPI.
+ * A Video extractor based on the MediaStream WebAPI.
  */
 export class VideoService implements IExtractor<MediaStream> {
 
