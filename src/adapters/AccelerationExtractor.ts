@@ -22,14 +22,13 @@ export class AccelerationExtractor extends GenericExtractor<AccelerationData> {
     }
 
     private refreshData(event: Event) {   
-        const acc = event.target;
-        console.log(acc)
+        const {x, y, z} = event.target as any;
         this._buffer = {
             type: "acceleration",
             payload: {
-                x: 1,
-                y: 1,
-                z: 2
+                x: x,
+                y: y,
+                z: z
             }
         };
         this.triggerCallbacks();
