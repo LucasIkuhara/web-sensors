@@ -1,9 +1,4 @@
-<svelte:head>
-	<title>WebSensors Live</title>
-	<meta name="description" content="A demo of web-sensors" />
-</svelte:head>
-
-<section class="widget-container">
+<section>
     <p>GPS Demo</p>
     <div id="gps-view"></div>
 </section>
@@ -49,11 +44,3 @@
         gps.destroy();
     })
 </script>
-
-<style>
-    .widget-container {
-        background-color: gainsboro;
-        padding: 20px;
-        border-radius: 10px;
-    }
-</style>

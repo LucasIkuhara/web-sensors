@@ -5,35 +5,40 @@
 
 <div class="text-column">
 	<h1>Live Demo</h1>
-	<section>
-		<video id="video-display"></video>
+	<section id='widget-grid'>
+		<div class="widget-container"> Acc </div>
+		<div class="widget-container">
+			 <CameraDemo></CameraDemo>
+		</div>
+		<div class="widget-container">
+			 <GpsDemo></GpsDemo> 
+		</div>
+
 	</section>
 
-	<GpsDemo></GpsDemo>
 </div>
 
 <script lang="ts">
-    import { onDestroy } from "svelte";
-    import { VideoService } from "../../adapters/VideoExtractor";
 	import GpsDemo from "./GpsDemo.svelte"
-
-	const videoService = new VideoService(true)
-	videoService.registerCallback(async (media) => {
-
-		const video = document.getElementsByTagName("video").item(0);
-		if (!video)
-			throw new Error("where is ma video")
-	
-		video.setAttribute('playsinline', '');
-		video.setAttribute('autoplay', '');
-		video.setAttribute('muted', '');
-		video.style.width = '900px';
-		video.style.height = '900px';
-		video.srcObject = media
-		console.log(media.getVideoTracks()[0].applyConstraints())
-	});
-
-	onDestroy(() => {
-		videoService.destroy();
-	})
+	import CameraDemo from "./CameraDemo.svelte"
 </script>
+<style>
+	#widget-grid {
+		display: grid;
+		justify-content: center;
+		align-items: center;
+	}
+    .widget-container {
+		background-color: gainsboro;
+        padding: 20px;
+        border-radius: 10px;
+		margin: 10px;
+		width: 50dvw;
+    }
+
+	@media (max-aspect-ratio: 1/1) {
+		.widget-container {
+			width: 80dvw;
+		}
+	}
+	</style>

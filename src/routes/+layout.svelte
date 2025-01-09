@@ -25,7 +25,7 @@
 		padding: 1rem;
 		width: 100%;
 		max-width: 64rem;
-		margin: 0 auto;
+		margin: 0px;
 		box-sizing: border-box;
 	}
 
