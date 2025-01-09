@@ -26,7 +26,7 @@ export type OrientationData = {
  * Represents linear acceleration from the device's pov, with gravity acceleration cancelled.
  */
 export type AccelerationData = {
-    type: "orientation",
+    type: "acceleration",
     payload: {
         x: number,
         y: number,
