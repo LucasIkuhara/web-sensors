@@ -12,7 +12,7 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
 
     constructor(options = { frequency: 60, referenceFrame: "device" }) {
         this._sensor = new AbsoluteOrientationSensor(options);
-        this._sensor.onreading = e => this.refreshData(e);
+        this._sensor.onreading = this.refreshData;
         this._sensor.onerror = this.handleWatchError;
         this._sensor.start(); 
     }
@@ -22,7 +22,6 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
         if (!this._buffer)
             throw new Error("The buffer is empty.");
 
-        console.log(this._buffer)
         return this._buffer;
     }
 
@@ -40,6 +39,5 @@ export class OrientationExtractor implements IExtractor<OrientationData> {
 
     private handleWatchError(err: SensorErrorEvent) {
         console.warn("Failed to watch Orientation: ", err);
-        window.alert(JSON.stringify(err))
     }
 }
