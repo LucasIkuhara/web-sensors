@@ -5,6 +5,25 @@
 
 <div class="text-column">
 	<h1>Transmit Data</h1>
+
+	<section >
+		<h2> Options </h2>
+		<ul id="data-election">
+			<li>
+				<label for="accelerometer"> Accelerometer: </label>
+				<input type="checkbox" name="accelerometer"/>
+			</li>
+			<li>
+				<label for="gps"> GPS: </label>
+				<input type="checkbox" name="gps"/>
+			</li>
+			<li>
+				<label for="orientation"> Orientation: </label>
+				<input type="checkbox" name="orientation"/>
+			</li>
+		</ul>
+	</section>
+
 	<label for="address-bar">Server Address: </label>
 	<input name="address-bar" type="text" placeholder="wss://someserver.com:8080" bind:value={serverAddress} >
 	<button on:click={changeHandler} class="button">Start</button>
@@ -55,6 +74,14 @@
 </script>
 
 <style>
+	#data-election {
+		display: flex;
+		flex-direction: column;
+	}
+
+	h2 {
+		font-weight: 600;
+	}
 	.button {
 		height: 4vh;
 	}
