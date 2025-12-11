@@ -1,14 +1,8 @@
-async function cacheThenNetwork(request) {
-  const cachedResponse = await caches.match(request);
-  if (cachedResponse) {
-    console.log("Found response in cache:", cachedResponse);
-    return cachedResponse;
-  }
-  console.log("Falling back to network");
-  return fetch(request);
-}
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js');
 
-self.addEventListener("fetch", (event) => {
-  console.log(`Handling fetch event for ${event.request.url}`);
-  event.respondWith(cacheThenNetwork(event.request));
-});
+workbox.routing.registerRoute(
+  new RegExp('https://lucasikuhara.github.io/web-sensors/.*'),
+  workbox.strategies.cacheFirst({
+    cacheName: 'images-cache',
+  })
+);
