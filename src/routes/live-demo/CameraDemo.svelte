@@ -27,6 +27,7 @@
 
 <style>
     #video-display {
-        width: 95%;
+        width: 100%;
+        aspect-ratio: 16 / 9
     }
 </style>

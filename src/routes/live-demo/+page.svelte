@@ -6,8 +6,8 @@
 <div class="text-column">
 	<h1>Live Demo</h1>
 	<section id='widget-grid'>
-		<div class="widget-container"> Orientation: {x} </div>
-		<div class="widget-container"> Acceleration: {y} </div>
+		<div class="widget-container"> Orientation: {orientation} </div>
+		<div class="widget-container"> Acceleration: {acceleration} </div>
 
 		<div class="widget-container">
 			 <CameraDemo></CameraDemo>
@@ -20,20 +20,35 @@
 
 </div>
 
-<script lang="ts">
+<script lang="js">
 	import GpsDemo from "./GpsDemo.svelte"
 	import CameraDemo from "./CameraDemo.svelte"
     import { OrientationExtractor } from "../../adapters/extractors/OrientationExtractor";
     import { AccelerationExtractor } from "../../adapters/extractors/AccelerationExtractor";
 
-	let x = "Sensor data unavailable."
-	let y = "Sensor data unavailable."
+	let orientation = "Sensor data unavailable."
+	let acceleration = "Sensor data unavailable."
 
-	const or = new OrientationExtractor()
-	const ac = new AccelerationExtractor()
+	const or = new OrientationExtractor();
+	const ac = new AccelerationExtractor();
 
-	or.registerCallback(async data => {x = `X: ${data.payload.x}\n Y: ${data.payload.y}\n Z: ${data.payload.z}\n W: ${data.payload.w}`})
-	ac.registerCallback(async data => {y = `X: ${data.payload.x}\n Y: ${data.payload.y}\n Z: ${data.payload.z}`})
+	function toPrecision(data) {
+		for (let key in data) {
+			data[key] = data[key].toPrecision(2);
+		}
+	}
+
+	or.registerCallback(async rawData => {
+		const data = rawData.payload;
+		toPrecision(data)
+		orientation = `X: ${data.x}\n Y: ${data.y}\n Z: ${data.z}\n W: ${data.w}`}
+	);
+
+	ac.registerCallback(async rawData => {
+		const data = rawData.payload;
+		toPrecision(data)
+		acceleration = `X: ${data.x}\n Y: ${data.y}\n Z: ${data.z}`}
+	);
 </script>
 <style>
 	#widget-grid {
