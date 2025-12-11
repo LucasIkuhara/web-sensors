@@ -1,38 +1,31 @@
 <section class="video-box">
     <p>Camera Demo</p>
-    <video id="video-display"></video>
+    <img id="video-display" alt="video playback frame">
 </section>
 
-<script lang="js">
-    import { onDestroy } from 'svelte';
-    import { VideoService } from '../../adapters/VideoExtractor';
+<script lang="ts">
+    import { onDestroy, onMount } from 'svelte';
+    import { VideoImageService } from '../../adapters/VideoExtractor';
 
-    const videoService = new VideoService(true)
-    videoService.registerCallback(async (media) => {
+    const videoService = new VideoImageService("user", 1, 720, 480);
 
-        const video = document.getElementsByTagName("video").item(0);
-        if (!video)
-            throw new Error("where is ma video")
-    
-        video.setAttribute('playsinline', '');
-        video.setAttribute('autoplay', '');
-        video.setAttribute('muted', '');
+    onMount(async () => {
 
-        video.srcObject = media
-        console.log(media.getVideoTracks()[0].applyConstraints())
+        const player: HTMLImageElement = document.getElementById("video-display") as HTMLImageElement;
+        console.log(player)
+        if (!player)
+            throw Error("Missing video player.");
+
+        videoService.registerCallback(async (data) => {
+                player.src = data;
+        });
     });
-
 	onDestroy(() => {
 		videoService.destroy();
 	})
 </script>
 
 <style>
-    #video-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
     #video-display {
         width: 95%;
     }
