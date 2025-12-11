@@ -22,7 +22,7 @@ export class WSTransmitter implements ISensorTransmitter {
      */
     private startConnection(target: string): WebSocket {
         try {
-            const socket =  new WebSocket(target);
+            const socket = new WebSocket(target);
             return socket;
         }
 

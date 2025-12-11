@@ -6,6 +6,8 @@ import {
 import { GenericExtractor } from "./GenericExtractor";
 
 
+type OrientationEvent = { target: { quaternion: Array<number> } }
+
 /**
  * An Orientation extractor based on the AbsoluteOrientationSensor WebAPI.
  */
@@ -14,15 +16,15 @@ export class OrientationExtractor extends GenericExtractor<OrientationData> {
     private _sensor: AbsoluteOrientationSensor;
 
     constructor(options: MotionSensorOptions = { frequency: 60, referenceFrame: "device" }) {
-        super()
+        super();
         this._sensor = new AbsoluteOrientationSensor(options);
-        this._sensor.onreading = (e: Event) => this.refreshData(e);
+        this._sensor.onreading = (e: OrientationEvent) => this.refreshData(e);
         this._sensor.onerror = (e: SensorErrorEvent) => this.handleWatchError(e);
-        this._sensor.start(); 
+        this._sensor.start();
     }
 
-    private refreshData(event: Event) {
-        const q: number[] = (event.target as any).quaternion;
+    private refreshData(event: OrientationEvent) {
+        const q: number[] = event.target.quaternion;
         this._buffer = {
             type: "orientation",
             payload: {

@@ -27,9 +27,9 @@ export class GenericExtractor<T> implements IExtractor<T> {
                     await cb(currentValue);
                 }
                 catch (err) {
-                    console.error("Callback ${cb.name} failed due to the following error:", err);
+                    console.error(`Callback ${cb.name} failed due to the following error:`, err);
                 }
-            })
+            });
         }
     }
 

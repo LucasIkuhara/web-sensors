@@ -13,12 +13,12 @@ export class GpsExtractor extends GenericExtractor<GpsData> {
         super();
 
         // Fails if the context isn't capable of geolocation.
-        if (!("geolocation" in navigator)) 
-            throw new Error("GPS unavailable in the context.")
+        if (!("geolocation" in navigator))
+            throw new Error("GPS unavailable in the context.");
 
         // Start watching the GPS signal.
         this._watchId = navigator.geolocation.watchPosition(
-            async dt => {this.refresh(dt)},
+            async dt => { this.refresh(dt); },
             this.handleWatchError,
             options
         );
@@ -43,7 +43,7 @@ export class GpsExtractor extends GenericExtractor<GpsData> {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             }
-        }
+        };
         this.triggerCallbacks();
     }
 }
