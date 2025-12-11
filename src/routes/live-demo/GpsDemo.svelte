@@ -11,7 +11,7 @@
     
 
     const gps = new GpsExtractor();
-    const options = {displayModeBar: false, responsive: false};
+    const options = {displayModeBar: false, responsive: true};
     let graphIsLive = false;
     
     onMount(async () => {
