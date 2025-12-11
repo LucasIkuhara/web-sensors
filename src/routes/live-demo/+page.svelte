@@ -26,8 +26,8 @@
     import { OrientationExtractor } from "../../adapters/extractors/OrientationExtractor";
     import { AccelerationExtractor } from "../../adapters/extractors/AccelerationExtractor";
 
-	let x = "X Y Z W"
-	let y = "X Y Z"
+	let x = "Sensor data unavailable."
+	let y = "Sensor data unavailable."
 
 	const or = new OrientationExtractor()
 	const ac = new AccelerationExtractor()
