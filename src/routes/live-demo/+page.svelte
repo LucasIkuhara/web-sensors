@@ -42,7 +42,7 @@
 		align-items: center;
 	}
     .widget-container {
-		background-color: gainsboro;
+		background-color: var(--bg-accent);
         padding: 20px;
         border-radius: 10px;
 		margin: 10px;
