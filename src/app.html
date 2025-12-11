@@ -10,5 +10,12 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
-	<script src="src/pwa_install.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register("sw.js");
+			}
+		else {
+			console.log("Service worker API is not available in the current context.");
+		}
+	</script>
 </html>
