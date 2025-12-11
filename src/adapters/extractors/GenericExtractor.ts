@@ -1,4 +1,4 @@
-import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
+import type { ExtractorCallback, IExtractor } from "../../ports/Extractor";
 
 /**
  * A generic extractor able to handle basic extractor functionality, like registering and triggering callbacks.

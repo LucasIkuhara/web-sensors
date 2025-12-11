@@ -1,4 +1,4 @@
-import type { ExtractorCallback } from "../ports/Extractor";
+import type { ExtractorCallback } from "../../ports/Extractor";
 import { GenericExtractor } from "./GenericExtractor";
 
 

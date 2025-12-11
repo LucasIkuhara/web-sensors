@@ -1,4 +1,4 @@
-import type { GpsData } from "../ports/Extractor";
+import type { GpsData } from "../../ports/Extractor";
 import { GenericExtractor } from "./GenericExtractor";
 
 

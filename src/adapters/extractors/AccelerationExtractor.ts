@@ -1,4 +1,4 @@
-import type { AccelerationData } from "../ports/Extractor";
+import type { AccelerationData } from "../../ports/Extractor";
 import {
     LinearAccelerationSensor
     // @ts-ignore

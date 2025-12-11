@@ -1,4 +1,4 @@
-import type { OrientationData } from "../ports/Extractor";
+import type { OrientationData } from "../../ports/Extractor";
 import {
     AbsoluteOrientationSensor
     // @ts-ignore

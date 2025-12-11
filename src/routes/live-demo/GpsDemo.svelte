@@ -4,7 +4,7 @@
 </section>
 
 <script lang="js">
-    import { GpsExtractor } from "../../adapters/GpsExtractor";
+    import { GpsExtractor } from "../../adapters/extractors/GpsExtractor";
     // @ts-ignore
     import * as Plotly from "plotly.js-dist";
     import { onMount, onDestroy } from 'svelte';

@@ -5,7 +5,7 @@
 
 <script lang="ts">
     import { onDestroy, onMount } from 'svelte';
-    import { VideoImageService } from '../../adapters/VideoExtractor';
+    import { VideoImageService } from '../../adapters/extractors/VideoExtractor';
 
     const videoService = new VideoImageService("user", 30, 720, 480);
 

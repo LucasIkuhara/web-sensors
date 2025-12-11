@@ -23,8 +23,8 @@
 <script lang="ts">
 	import GpsDemo from "./GpsDemo.svelte"
 	import CameraDemo from "./CameraDemo.svelte"
-    import { OrientationExtractor } from "../../adapters/OrientationExtractor";
-    import { AccelerationExtractor } from "../../adapters/AccelerationExtractor";
+    import { OrientationExtractor } from "../../adapters/extractors/OrientationExtractor";
+    import { AccelerationExtractor } from "../../adapters/extractors/AccelerationExtractor";
 
 	let x = "X Y Z W"
 	let y = "X Y Z"
