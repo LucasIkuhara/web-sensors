@@ -1,4 +1,5 @@
-import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
+import type { ExtractorCallback } from "../ports/Extractor";
+import { GenericExtractor } from "./GenericExtractor";
 
 
 export type DataURL = string;
@@ -7,7 +8,7 @@ export type DataURL = string;
  * A Video Image extractor based on the MediaStream WebAPI. Returns images as Data URLs.
  * Reference: https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toDataURL
  */
-export class VideoImageService implements IExtractor<DataURL> {
+export class VideoImageService extends GenericExtractor<DataURL> {
 
     private stream?: MediaStream;
     private callbackPool: ExtractorCallback<DataURL>[] = [];
@@ -21,13 +22,14 @@ export class VideoImageService implements IExtractor<DataURL> {
 
     constructor(whichCamera: "environment" | "user", targetFPS: number, height: number, width: number) {
 
+        super();
         this.targetFPS = targetFPS;
         this.width = width;
         this.height = height;
 
         const videoOptions: MediaTrackConstraints = {
-            facingMode: "user",
-            // frameRate: targetFPS,
+            facingMode: whichCamera,
+            frameRate: targetFPS,
             height,
             width
         };
@@ -60,8 +62,8 @@ export class VideoImageService implements IExtractor<DataURL> {
         this.player.setAttribute('muted', '');
 
         this.loopId = setInterval(() => {
-            const data = this.imageToData();
-            this.triggerCallbacks(data);
+            this._buffer = this.imageToData();
+            this.triggerCallbacks();
         }, 1000 / this.targetFPS);
     }
 
@@ -74,50 +76,9 @@ export class VideoImageService implements IExtractor<DataURL> {
         return this.canvas.canvas.toDataURL();
     }
 
-    /**
-     * Call all callbacks with the newest image.
-     */
-    private triggerCallbacks(data: DataURL) {
-
-        this.callbackPool.forEach(async cb => {
-            // Prevent callback failure from interfering with others.
-            try {
-                await cb(data);
-            }
-            catch (err) {
-                console.error(`Callback ${cb.name} failed due to the following error: `, err);
-            }
-        });
-    }
-
-    /**
-     * Gets a video frame as a DataURL string.
-     * @returns The DataURL string.
-     */
-    getData(): DataURL {
-
-        if (!this.imgBuffer)
-            throw new Error("The buffer is empty.");
-
-        return this.imgBuffer;
-    }
-
     destroy(): void {
-        this.stream?.stop();
+        this.stream?.getVideoTracks().forEach(e => e.stop());
         clearInterval(this.loopId);
         this.stream = undefined;
     }
-
-    /**
-     * Register callbacks awaiting for image data to be generated.
-     * If there is already data, the callback is triggered immediately.
-     * @param target 
-     */
-    registerCallback(target: ExtractorCallback<DataURL>): void {
-        this.callbackPool.push(target);
-
-        if (this.imgBuffer)
-            target(this.imgBuffer);
-    }
-
 }
