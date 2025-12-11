@@ -1,6 +1,6 @@
 {
     "background_color": "#000000",
-    "description": "An easy way to extract sensor data, specially from a phone, via standard web-sockets.",
+    "description": "An easy way to extract sensor data from mobile devices via standard web-sockets or http.",
     "display": "standalone",
     "icons": [
       {
@@ -10,9 +10,9 @@
       }
     ],
     "id": "/",
-    "name": "Web Sensors",
+    "name": "Web Sensors Tx",
     "scope": "./",
-    "short_name": "WSensors",
+    "short_name": "WebSensorsTx",
     "start_url": "./",
     "theme_color": "#000000"
 }
