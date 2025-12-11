@@ -1,52 +1,86 @@
 import type { ExtractorCallback, IExtractor } from "../ports/Extractor";
 
 
+export type DataURL = string;
+
 /**
- * A Video extractor based on the MediaStream WebAPI.
+ * A Video Image extractor based on the MediaStream WebAPI. Returns images as Data URLs.
+ * Reference: https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toDataURL
  */
-export class VideoService implements IExtractor<MediaStream> {
+export class VideoImageService implements IExtractor<DataURL> {
 
-    private _stream?: MediaStream;
-    private _callbackPool: ExtractorCallback<MediaStream>[] = [];
+    private stream?: MediaStream;
+    private callbackPool: ExtractorCallback<DataURL>[] = [];
+    private canvas: CanvasRenderingContext2D;
+    private player = document.createElement("video");
+    private imgBuffer?: DataURL;
+    private width: number = 0;
+    private height: number = 0;
+    private targetFPS: number;
+    private loopId?: number;
 
-    constructor(useBackCamera: boolean) {
-        
-        const cameraToUse = useBackCamera ? "environment" : "user";
+    constructor(whichCamera: "environment" | "user", targetFPS: number, height: number, width: number) {
+
+        this.targetFPS = targetFPS;
+        this.width = width;
+        this.height = height;
+
         const videoOptions: MediaTrackConstraints = {
-            facingMode: cameraToUse
+            facingMode: whichCamera,
+            frameRate: targetFPS,
+            height,
+            width
         };
+
+        // Create canvas context for image capture
+        const canvasCtx = document.createElement("canvas").getContext("2d");
+        if (!canvasCtx) throw Error("Failed to create camera capture context.");
+        this.canvas = canvasCtx;
 
         const options: MediaStreamConstraints = {
             audio: false,
             video: videoOptions
         };
-        this.setup(options)
+        this.setupCapture(options);
     }
 
     /**
      * Create and wait for MediaStream to be started. Trigger Callbacks when done.
      * @param options 
      */
-    async setup(options: MediaStreamConstraints): Promise<void> {
+    async setupCapture(options: MediaStreamConstraints): Promise<void> {
 
         const media = await navigator.mediaDevices.getUserMedia(options);
-        this._stream = media;
-        this.triggerCallbacks();
+        this.stream = media;
+
+        this.player.srcObject = media;
+        this.player.setAttribute("width", String(this.width));
+        this.player.setAttribute("height", String(this.height));
+
+        this.loopId = setInterval(() => {
+            const data = this.imageToData();
+            this.triggerCallbacks(data);
+        }, 1000 / this.targetFPS);
     }
 
     /**
-     * Call all callbacks with the media stream.
+     * Converts images from the HTML Video element to an image as a DataURL string.
+     * @returns The DataURL string.
      */
-    private triggerCallbacks() {
+    private imageToData() {
+        this.canvas?.drawImage(this.player, 0, 0, this.width, this.height);
+        return this.canvas.canvas.toDataURL();
+    }
 
-        this._callbackPool.forEach(async cb => {
+    /**
+     * Call all callbacks with the newest image.
+     */
+    private triggerCallbacks(data: DataURL) {
 
-            if (!this._stream)
-                return;
-
+        this.callbackPool.forEach(async cb => {
             // Prevent callback failure from interfering with others.
             try {
-                await cb(this._stream);
+                await cb(data);
             }
             catch (err) {
                 console.error(`Callback ${cb.name} failed due to the following error: ${JSON.stringify(err)}`);
@@ -55,34 +89,35 @@ export class VideoService implements IExtractor<MediaStream> {
     }
 
     /**
-     * Gets a MediaStream object with camera and audio.
-     * @returns A copy of the media stream.
+     * Gets a video frame as a DataURL string.
+     * @returns The DataURL string.
      */
-    getData(): MediaStream {
+    getData(): DataURL {
 
-        if (!this._stream)
+        if (!this.imgBuffer)
             throw new Error("The buffer is empty.");
 
-        return this._stream;
+        return this.imgBuffer;
     }
 
     destroy(): void {
-        this._stream?.getTracks().forEach(tr => 
+        this.stream?.getTracks().forEach(tr =>
             tr.stop()
-        )
-        this._stream = undefined;
+        );
+        clearInterval(this.loopId);
+        this.stream = undefined;
     }
 
     /**
-     * Register callbacks awaiting for the MediaStream to be initialized.
-     * If there is already a MediaStream, the callback is triggered immediately.
+     * Register callbacks awaiting for image data to be generated.
+     * If there is already data, the callback is triggered immediately.
      * @param target 
      */
-    registerCallback(target: ExtractorCallback<MediaStream>): void {
-        this._callbackPool.push(target);
+    registerCallback(target: ExtractorCallback<DataURL>): void {
+        this.callbackPool.push(target);
 
-        if (this._stream)
-            target(this._stream);
+        if (this.imgBuffer)
+            target(this.imgBuffer);
     }
 
 }
