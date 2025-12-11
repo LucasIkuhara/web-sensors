@@ -26,8 +26,8 @@ export class VideoImageService implements IExtractor<DataURL> {
         this.height = height;
 
         const videoOptions: MediaTrackConstraints = {
-            facingMode: whichCamera,
-            frameRate: targetFPS,
+            facingMode: "user",
+            // frameRate: targetFPS,
             height,
             width
         };
@@ -50,12 +50,14 @@ export class VideoImageService implements IExtractor<DataURL> {
      */
     async setupCapture(options: MediaStreamConstraints): Promise<void> {
 
-        const media = await navigator.mediaDevices.getUserMedia(options);
-        this.stream = media;
+        this.stream = await navigator.mediaDevices.getUserMedia(options);
 
-        this.player.srcObject = media;
+        // Configure virtual video html element
+        this.player.srcObject = this.stream;
         this.player.setAttribute("width", String(this.width));
         this.player.setAttribute("height", String(this.height));
+        this.player.setAttribute('autoplay', '');
+        this.player.setAttribute('muted', '');
 
         this.loopId = setInterval(() => {
             const data = this.imageToData();
@@ -83,7 +85,7 @@ export class VideoImageService implements IExtractor<DataURL> {
                 await cb(data);
             }
             catch (err) {
-                console.error(`Callback ${cb.name} failed due to the following error: ${JSON.stringify(err)}`);
+                console.error(`Callback ${cb.name} failed due to the following error: `, err);
             }
         });
     }
@@ -101,9 +103,7 @@ export class VideoImageService implements IExtractor<DataURL> {
     }
 
     destroy(): void {
-        this.stream?.getTracks().forEach(tr =>
-            tr.stop()
-        );
+        this.stream?.stop();
         clearInterval(this.loopId);
         this.stream = undefined;
     }
