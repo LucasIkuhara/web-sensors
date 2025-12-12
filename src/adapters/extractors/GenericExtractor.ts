@@ -39,5 +39,9 @@ export class GenericExtractor<T> implements IExtractor<T> {
 
     registerCallback(target: ExtractorCallback<T>): void {
         this._callbackPool.push(target);
+
+        // Try to trigger immediately
+        if (this._buffer)
+            target(this._buffer);
     }
 }

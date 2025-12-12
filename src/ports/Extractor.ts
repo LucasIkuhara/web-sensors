@@ -12,7 +12,8 @@ export interface IExtractor<T> {
 
     /**
      * Register a callback function which should be ran when new data is
-     * extracted successfully.
+     * extracted successfully. If buffered data is already present, trigger
+     * the callback immediately.
      * @param target The callback function.
      */
     registerCallback(target: ExtractorCallback<T>): void;
