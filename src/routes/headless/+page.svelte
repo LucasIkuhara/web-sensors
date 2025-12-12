@@ -30,7 +30,7 @@
 </div>
 
 <script lang="ts">
-    import { WSTransmitter } from "../../adapters/extractors/WSTransmitterTransmitter";
+    import { WSTransmitter } from "../../adapters/transmitters/WSTransmitter";
     import { getTargetServer } from "../../utils/pageUtils";
 
 
