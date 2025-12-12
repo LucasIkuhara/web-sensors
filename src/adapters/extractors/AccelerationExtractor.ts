@@ -41,6 +41,6 @@ export class AccelerationExtractor extends GenericExtractor<AccelerationData> {
     }
 
     private handleWatchError(err: SensorErrorEvent) {
-        console.warn("Failed to watch Orientation: ", err);
+        console.warn("Failed to watch Acceleration: ", err);
     }
 }

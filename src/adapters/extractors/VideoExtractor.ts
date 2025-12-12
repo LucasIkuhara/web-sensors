@@ -15,17 +15,15 @@ export class VideoImageService extends GenericExtractor<DataURL> {
     private canvas: CanvasRenderingContext2D;
     private player = document.createElement("video");
     private imgBuffer?: DataURL;
-    private width: number = 0;
-    private height: number = 0;
+    public width: number = 0;
+    public height: number = 0;
     private targetFPS: number;
     private loopId?: number;
 
-    constructor(whichCamera: "environment" | "user", targetFPS: number, height: number, width: number) {
+    constructor(whichCamera: "environment" | "user", targetFPS: number, height?: number, width?: number) {
 
         super();
         this.targetFPS = targetFPS;
-        this.width = width;
-        this.height = height;
 
         const videoOptions: MediaTrackConstraints = {
             facingMode: whichCamera,
@@ -47,12 +45,25 @@ export class VideoImageService extends GenericExtractor<DataURL> {
     }
 
     /**
+     * The current video aspect-ratio.
+     */
+    get ratio() {
+        return this.width / this.height;
+    }
+
+    /**
      * Create and wait for MediaStream to be started. Trigger Callbacks when done.
      * @param options 
      */
     async setupCapture(options: MediaStreamConstraints): Promise<void> {
 
         this.stream = await navigator.mediaDevices.getUserMedia(options);
+
+        // Update service options in case media doesn't match initial request
+        const settings = this.stream.getVideoTracks()[0].getSettings();
+        this.width = settings.width ?? this.width;
+        this.height = settings.height ?? this.height;
+        this.targetFPS = settings.frameRate ?? this.targetFPS;
 
         // Configure virtual video html element
         this.player.srcObject = this.stream;

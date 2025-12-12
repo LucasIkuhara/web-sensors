@@ -8,19 +8,20 @@
     // @ts-ignore
     import * as Plotly from "plotly.js-dist";
     import { onMount, onDestroy } from 'svelte';
-    
+
 
     const gps = new GpsExtractor();
     const options = {displayModeBar: false, responsive: true};
     let graphIsLive = false;
-    
+
     onMount(async () => {
         gps.registerCallback(async (pos) => {
             
             const mapLayout = {
                 dragmode: "zoom",
                 mapbox: { style: "open-street-map", center: { lat: pos.payload.latitude, lon: pos.payload.longitude }, zoom: 8 },
-                margin: { r: 1, t: 1, b: 1, l: 1 }
+                margin: { r: 1, t: 1, b: 1, l: 1 },
+                height: "20rem"
             };
             const data = {
                 type: "scattermapbox",
@@ -39,9 +40,14 @@
             }
         })
 
-	});
+    });
 
     onDestroy(() => {
         gps.destroy();
     })
 </script>
+<style>
+    #id {
+        height: 20rem;
+    }
+</style>
