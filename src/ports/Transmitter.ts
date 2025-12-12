@@ -3,7 +3,7 @@ import type { SensorData } from "../domain/sensorData";
 /**
  * An entity capable of transmitting sensor data.
  */
-export interface Transmitter {
+export interface ITransmitter {
 
     /**
      * Send sensor data frame.

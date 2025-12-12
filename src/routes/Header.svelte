@@ -32,7 +32,6 @@
 		display: flex;
 		justify-content: space-between;
 		background: var(--background-accent);
-
 	}
 
 	.corner {

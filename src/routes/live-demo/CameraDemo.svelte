@@ -28,6 +28,6 @@
 <style>
     #video-display {
         width: 100%;
-        aspect-ratio: 16 / 9
+        aspect-ratio: 16 / 9;
     }
 </style>

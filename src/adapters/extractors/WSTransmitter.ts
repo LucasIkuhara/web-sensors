@@ -1,8 +1,8 @@
-import type { ISensorTransmitter } from "../ports/ISensorData";
-import type { SensorData } from "../ports/Extractor";
+import type { ITransmitter } from "../../ports/Transmitter";
+import type { SensorData } from "../../domain/sensorData";
 
 
-export class WSTransmitter implements ISensorTransmitter {
+export class WSTransmitter implements ITransmitter {
 
     private _socket: WebSocket;
 

@@ -1,7 +1,7 @@
-import type { OrientationData } from "../../ports/Extractor";
+import type { OrientationData } from "../../domain/sensorData";
 import {
     AbsoluteOrientationSensor
-    // @ts-ignore
+    // @ts-expect-error Types package doesn't work
 } from 'motion-sensors-polyfill/src/motion-sensors.js';
 import { GenericExtractor } from "./GenericExtractor";
 

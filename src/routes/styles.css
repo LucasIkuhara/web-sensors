@@ -3,9 +3,9 @@
 :root {
 
 	/* Global Pallette */
-	--c1-color: #1e90ff;
-	--c1-accent: #6db3f8;
-	--c1-muted: #14508b;
+	--c1-color: #49739c;
+	--c1-accent: #6094c9;
+	--c1-muted: rgb(14, 58, 102);
 
 	--bg-color: #302E2B;
 	--bg-accent: #141312;
@@ -27,15 +27,12 @@ body {
 	background-attachment: fixed;
 	background-color: var(--bg-color);
 	background-size: 100vw 100vh;
+	display: flex;
+	justify-content: center;
 }
 
-h1,
-h2,
-p {
+h1, h2, p {
 	font-weight: 400;
-}
-
-p {
 	line-height: 1.5;
 }
 
@@ -57,16 +54,6 @@ h2 {
 	font-size: 1rem;
 }
 
-pre {
-	font-size: 16px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--color-text);
-}
 
 .text-column {
 	display: flex;

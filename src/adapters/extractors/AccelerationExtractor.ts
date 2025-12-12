@@ -1,7 +1,7 @@
-import type { AccelerationData } from "../../ports/Extractor";
+import type { AccelerationData } from "../../domain/sensorData";
 import {
     LinearAccelerationSensor
-    // @ts-ignore
+    // @ts-expect-error Types package doesn't work
 } from 'motion-sensors-polyfill/src/motion-sensors.js';
 import { GenericExtractor } from "./GenericExtractor";
 

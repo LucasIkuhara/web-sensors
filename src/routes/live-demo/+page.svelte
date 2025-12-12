@@ -51,11 +51,25 @@
 	);
 </script>
 <style>
-	#widget-grid {
-		display: grid;
-		justify-content: center;
-		align-items: center;
+	@media only screen and (max-device-width: 768px) {
+		#widget-grid {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
 	}
+
+	@media only screen and (min-device-width: 768px) {
+		#widget-grid {
+			display: grid;
+			grid-template: "A A"
+							"B B";
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
     .widget-container {
 		background-color: var(--bg-accent);
         padding: 20px;
