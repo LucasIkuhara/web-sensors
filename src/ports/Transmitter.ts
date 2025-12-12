@@ -1,9 +1,9 @@
-import type { SensorData } from "./Extractor";
+import type { SensorData } from "../domain/sensorData";
 
 /**
  * An entity capable of transmitting sensor data.
  */
-export interface ISensorTransmitter {
+export interface Transmitter {
 
     /**
      * Send sensor data frame.
