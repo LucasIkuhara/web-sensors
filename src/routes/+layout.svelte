@@ -5,7 +5,8 @@
 
 <div class="app">
 	<Header />
-
+	<title>WebSensors Live</title>
+	<meta name="description" content="A demo of web-sensors" />
 	<main>
 		<slot />
 	</main>
@@ -15,17 +16,15 @@
 	.app {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh;
+		min-height: 100dvh;
 	}
 
 	main {
+		width: 100%;
 		flex: 1;
 		display: flex;
+		align-items: center;
 		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0px;
 		box-sizing: border-box;
 	}
 

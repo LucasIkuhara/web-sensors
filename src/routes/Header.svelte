@@ -27,7 +27,7 @@
 <style>
 	header {
 		justify-content: space-between;
-		width: 100vw;
+		width: 100dvw;
 	}
 
 	
@@ -35,8 +35,9 @@
 		header {
 			background: var(--background-accent);
 		}
-		ul {
-			width: 100vw;
+
+		ul, nav {
+			width: 100dvw;
 		}
 	}
 
@@ -82,10 +83,6 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
-	}
-
-	img {
-		color: var(--c1-accent);
 	}
 
 	a:hover {

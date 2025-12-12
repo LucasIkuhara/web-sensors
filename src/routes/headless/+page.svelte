@@ -83,6 +83,6 @@
 		font-weight: 600;
 	}
 	.button {
-		height: 4vh;
+		height: 4dvh;
 	}
 </style>

@@ -1,24 +1,19 @@
-<svelte:head>
-	<title>WebSensors Live</title>
-	<meta name="description" content="A demo of web-sensors" />
-</svelte:head>
+<section id="demo-page">
 
-<div class="text-column">
 	<h1>Live Demo</h1>
-	<section id='widget-grid'>
-		<div class="widget-container"> Orientation: {orientation} </div>
-		<div class="widget-container"> Acceleration: {acceleration} </div>
+	<ul id='widget-grid'>
+		<li class="widget-container"> Orientation: {orientation} </li>
+		<li class="widget-container"> Acceleration: {acceleration} </li>
 
-		<div class="widget-container">
+		<li class="widget-container">
 			 <CameraDemo></CameraDemo>
-		</div>
-		<div class="widget-container">
+		</li>
+		<li class="widget-container">
 			 <GpsDemo></GpsDemo> 
-		</div>
+		</li>
 
-	</section>
-
-</div>
+	</ul>
+</section>
 
 <script lang="js">
 	import GpsDemo from "./GpsDemo.svelte"
@@ -32,6 +27,7 @@
 	const or = new OrientationExtractor();
 	const ac = new AccelerationExtractor();
 
+	// @ts-ignore
 	function toPrecision(data) {
 		for (let key in data) {
 			data[key] = data[key].toPrecision(2);
@@ -51,6 +47,14 @@
 	);
 </script>
 <style>
+	#demo-page {
+	}
+	#widget-grid {
+		width: 100%;
+		list-style: none;
+		padding: 0;
+	}
+
 	@media only screen and (max-device-width: 768px) {
 		#widget-grid {
 			display: flex;
@@ -58,15 +62,25 @@
 			justify-content: center;
 			align-items: center;
 		}
+		.widget-container {
+			margin-top: 1rem;
+			width: calc(100% - 2rem);
+			box-sizing: border-box;
+		}
 	}
 
+	/* Desktop */
 	@media only screen and (min-device-width: 768px) {
 		#widget-grid {
 			display: grid;
 			grid-template: "A A"
 							"B B";
-			justify-content: center;
-			align-items: center;
+			grid-gap: 1rem;
+			padding: 2rem;
+			box-sizing: border-box;
+		}
+		.widget-container {
+			margin: 0;
 		}
 	}
 
@@ -74,13 +88,5 @@
 		background-color: var(--bg-accent);
         padding: 20px;
         border-radius: 10px;
-		margin: 10px;
-		width: 50dvw;
     }
-
-	@media (max-aspect-ratio: 1/1) {
-		.widget-container {
-			width: 80dvw;
-		}
-	}
-	</style>
+</style>

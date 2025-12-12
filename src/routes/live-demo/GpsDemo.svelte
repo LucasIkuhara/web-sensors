@@ -47,7 +47,7 @@
     })
 </script>
 <style>
-    #id {
+    #gps-view {
         height: 20rem;
     }
 </style>
