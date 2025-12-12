@@ -18,6 +18,8 @@
 	font-style: normal;
 	font-variation-settings: "wdth" 100;
 	color: var(--c1-color);
+
+	--header-height: 3em;
 }
 
 section {

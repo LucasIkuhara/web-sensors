@@ -1,5 +1,5 @@
 <section>
-    <p>GPS Demo</p>
+    GPS Demo
     <div id="gps-view"></div>
 </section>
 
@@ -47,6 +47,7 @@
 </script>
 <style>
     #gps-view {
+        margin-top: 1rem;
         height: 20rem;
     }
 </style>

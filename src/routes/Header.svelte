@@ -28,12 +28,15 @@
 	header {
 		justify-content: space-between;
 		width: 100dvw;
+		background: var(--background-accent);
+		position: fixed;
+		left: 0;
 	}
 
 	
 	@media only screen and (max-device-width: 768px) {
 		header {
-			background: var(--background-accent);
+			top: 0;
 		}
 
 		ul, nav {
@@ -43,8 +46,11 @@
 
 	@media only screen and (min-device-width: 768px) {
 		header {
-			top: 2rem;
-			background: var(--background-accent);
+			top: 2rem;	
+		}
+		ul {
+			padding-left: 2rem !important;
+			padding-right: 2rem !important;
 		}
 	}
 
@@ -57,7 +63,7 @@
 		position: relative;
 		padding: 0;
 		margin: 0;
-		height: 3em;
+		height: var(--header-height);
 		display: flex;
 		justify-content: center;
 		align-items: center;

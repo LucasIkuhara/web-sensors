@@ -17,6 +17,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100dvh;
+		width: 100%;
 	}
 
 	main {
@@ -26,6 +27,14 @@
 		align-items: center;
 		flex-direction: column;
 		box-sizing: border-box;
+		margin-top: 4em;
 	}
+
+	@media only screen and (max-device-width: 768px) {
+		main {
+			margin-top: var(--header-height);
+		}
+	}
+
 
 </style>

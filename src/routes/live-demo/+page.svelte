@@ -47,8 +47,6 @@
 	);
 </script>
 <style>
-	#demo-page {
-	}
 	#widget-grid {
 		width: 100%;
 		list-style: none;
