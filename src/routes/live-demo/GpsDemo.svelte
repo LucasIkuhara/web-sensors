@@ -16,18 +16,17 @@
 
     onMount(async () => {
         gps.registerCallback(async (pos) => {
-            
             const mapLayout = {
                 dragmode: "zoom",
-                mapbox: { style: "open-street-map", center: { lat: pos.payload.latitude, lon: pos.payload.longitude }, zoom: 8 },
+                map: { style: "open-street-map", center: { lat: pos.payload.latitude, lon: pos.payload.longitude }, zoom: 8 },
                 margin: { r: 1, t: 1, b: 1, l: 1 },
-                height: "20rem"
+                autosize: true,
             };
             const data = {
-                type: "scattermapbox",
+                type: "scattermap",
                 lon: [pos.payload.longitude],
                 lat: [pos.payload.latitude],
-                marker: { color: "red", size: 20 }
+                marker: { color: "blue", size: 10 }
             }
 
             if (!graphIsLive) {
