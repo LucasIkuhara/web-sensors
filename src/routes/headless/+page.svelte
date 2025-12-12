@@ -50,7 +50,7 @@
 			wsTx = new WSTransmitter(serverAddress);
 
 		setTimeout(()=> {
-			wsTx.sendData({
+			wsTx?.sendData({
 				type: "gps",
 				payload: {
 					latitude: 1,

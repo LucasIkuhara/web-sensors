@@ -4,7 +4,6 @@
 </script>
 
 <header>
-	<div class="corner"></div>
 	<nav>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
@@ -16,41 +15,36 @@
 			<li aria-current={$page.url.pathname.startsWith('/headless') ? 'page' : undefined}>
 				<a href="./headless">Transmit</a>
 			</li>
+			<li>
+				<a href="https://github.com/LucasIkuhara/web-sensors">
+					GitHub
+				</a>
+			</li>
 		</ul>
 	</nav>
-
-	<div class="corner">
-		<a href="https://github.com/LucasIkuhara/web-sensors">
-			<img src={github} alt="GitHub" />
-		</a>
-	</div>
 </header>
 
 <style>
-
 	header {
-		display: flex;
 		justify-content: space-between;
-		background: var(--background-accent);
+		width: 100vw;
 	}
 
-	.corner {
-		width: 3em;
-		height: 3em;
+	
+	@media only screen and (max-device-width: 768px) {
+		header {
+			background: var(--background-accent);
+		}
+		ul {
+			width: 100vw;
+		}
 	}
 
-	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
+	@media only screen and (min-device-width: 768px) {
+		header {
+			top: 2rem;
+			background: var(--background-accent);
+		}
 	}
 
 	nav {
@@ -88,6 +82,10 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
+	}
+
+	img {
+		color: var(--c1-accent);
 	}
 
 	a:hover {
