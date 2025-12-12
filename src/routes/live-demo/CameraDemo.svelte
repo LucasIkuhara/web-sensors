@@ -7,7 +7,7 @@
     import { onDestroy, onMount } from 'svelte';
     import { VideoImageService } from '../../adapters/extractors/VideoExtractor';
 
-    const videoService = new VideoImageService("user", 30);
+    const videoService = new VideoImageService("environment", 30);
 
     onMount(async () => {
 
