@@ -1,5 +1,5 @@
 import type { ITransmitter } from "../../ports/Transmitter";
-import type { SensorData } from "../../domain/sensorData";
+import type { SensorData } from "../../domain/SensorData";
 
 
 export class WSTransmitter implements ITransmitter {

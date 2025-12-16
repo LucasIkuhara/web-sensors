@@ -1,4 +1,4 @@
-import type { SensorData } from "../domain/sensorData";
+import type { SensorData } from "../domain/SensorData";
 
 /**
  * An entity capable of transmitting sensor data.

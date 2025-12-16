@@ -1,4 +1,4 @@
-import type { OrientationData } from "../../domain/sensorData";
+import type { OrientationData } from "../../domain/SensorData";
 import {
     AbsoluteOrientationSensor
     // @ts-expect-error Types package doesn't work

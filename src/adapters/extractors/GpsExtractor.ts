@@ -1,4 +1,4 @@
-import type { GpsData } from "../../domain/sensorData";
+import type { GpsData } from "../../domain/SensorData";
 import { GenericExtractor } from "./GenericExtractor";
 
 

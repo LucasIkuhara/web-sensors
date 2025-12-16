@@ -1,4 +1,4 @@
-import type { AccelerationData } from "../../domain/sensorData";
+import type { AccelerationData } from "../../domain/SensorData";
 import {
     LinearAccelerationSensor
     // @ts-expect-error Types package doesn't work
